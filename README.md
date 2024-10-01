@@ -13,4 +13,7 @@ applied routing using react-router-dom
 tasks......   (1).. login page (signIn and signUp form ) ✅
                         ** accessed input data handled form using useRef hook ✔️
                         ** using regEx for form validation ✔️
-                        ** 
+                        ** completed firebase setup ✔️
+                        ** completed deployment with firebase deploy ✔️
+                        ** create user using email and password completed ✔️
+                        ** Authentication with firebase
