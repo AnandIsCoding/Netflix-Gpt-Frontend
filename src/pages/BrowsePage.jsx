@@ -1,31 +1,33 @@
-import React, { useEffect } from 'react'
-import {API_OPTIONS} from '../utils/Constants'
+import React, { useEffect } from 'react';
+import useNowPlayingMovies from '/hooks/useNowPlayingMovies';
+import { useSelector } from 'react-redux';
+import MainContainer from '../components/MainContainer';
+import SecondaryContainer from '../components/SecondaryContainer';
 
 function BrowsePage() {
+    useNowPlayingMovies();
 
-  const fetchData = async() =>{
-      try{
-          const raw = await fetch('https://api.themoviedb.org/3/movie/now_playing?&page=1', API_OPTIONS);
-          const data = await raw.json();
-          console.log(data.results)
-      }catch(error){
-        console.log(error + ' ' + ' ( error occurred in fetching data )')
-      }
-  }
+    // Correctly using useSelector to get nowPlayingMovies
+    const nowPlayingMovies = useSelector(state => state.movies?.nowPlayingMovies);
+    if(nowPlayingMovies === null ) return;
+    const firstMovie = nowPlayingMovies[0];
+    if(firstMovie === undefined) return;
+    const {original_title, overview} = firstMovie;
+    const movieId = firstMovie.id;
+    // Log to verify the value
+    console.log(firstMovie);
 
-  useEffect(() => {
-    fetchData() // Fetch data on every page load
-  },[])
-
-  return (
-    <div className="min-w-screen  min-h-screen mt-[-1px] bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/bfc0fc46-24f6-4d70-85b3-7799315c01dd/web/IN-en-20240923-TRIFECTA-perspective_74e21c19-980e-45ef-bd6c-78c1a6ce9381_medium.jpg')] " >
-
-      <div className='w-full h-[100%] absolute bg-[#000000c9]'>
-
-      </div>
-
-    </div>
-  )
+    return (
+        <div className="min-w-screen min-h-screen mt-[-1px] ">
+            <div className='w-full h-full absolute  text-white'>
+                <MainContainer title={original_title} description={overview} id={movieId} />
+                <SecondaryContainer/>
+            </div>
+        </div>
+    );
 }
 
-export default BrowsePage
+export default BrowsePage;
+
+//bg-[url('https://assets.nflxext.com/ffe/siteui/vlv3/bfc0fc46-24f6-4d70-85b3-7799315c01dd/web/IN-en-20240923-TRIFECTA-perspective_74e21c19-980e-45ef-bd6c-78c1a6ce9381_medium.jpg')]
+
