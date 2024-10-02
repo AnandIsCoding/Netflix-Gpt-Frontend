@@ -21,7 +21,7 @@ function BrowsePage() {
         <div className="min-w-screen min-h-screen mt-[-1px] ">
             <div className='w-full h-full absolute  text-white'>
                 <MainContainer title={original_title} description={overview} id={movieId} />
-                <SecondaryContainer/>
+                <SecondaryContainer moviesList={nowPlayingMovies} />
             </div>
         </div>
     );
