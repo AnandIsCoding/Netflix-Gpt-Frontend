@@ -1,4 +1,4 @@
-firebaseSetup.js
+src/utils/firebaseSetup.js
 
 # Logs
 logs
